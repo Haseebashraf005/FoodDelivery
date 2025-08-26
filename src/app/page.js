@@ -1,4 +1,5 @@
 'use client'
+import "flowbite";
 
 const page = () => {
   return (
