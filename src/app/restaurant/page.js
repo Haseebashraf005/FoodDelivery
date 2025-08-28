@@ -44,15 +44,10 @@ const Register = () => {
                     </div>
                 </nav>
 
-
+                        
 
                 {
-                    login ?
-                        <Login />
-                        :
-                        <Signup />
-
-
+                    login ?<Login /> :  <Signup />
                 }
 
 
