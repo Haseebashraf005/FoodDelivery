@@ -1,4 +1,5 @@
-1-intro
-2-restuarant page , login component , signup component 
-3- header and footer 
-4- db connection atlas
+// 1-intro
+// 2-restuarant page , login component , signup component 
+// 3- header and footer 
+// 4- mongo atlas login and make db and collecction for -> save Restaurant data for signup  
+// 5- env file , db file mapi route , make model check connection npm mongoes
