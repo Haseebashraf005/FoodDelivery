@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 
 // const MONGODB_URI = 'mongodb://localhost:27017/store'; 
-const MONGODB_URI = `mongodb+srv://haseebashraf05_db_user:${process.env.password}@cluster1.by3okcz.mongodb.net/restaurantDB?retryWrites=true&w=majority&appName=Cluster1`; 
+// const MONGODB_URI = `mongodb+srv://haseebashraf05_db_user:Pakistan1234@cluster1.sb3s5dk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1`; 
+const MONGODB_URI = 'mongodb://localhost:27017/resturantDB'; 
 
 
 async function connectToDatabase() {
@@ -14,5 +15,4 @@ async function connectToDatabase() {
 
 } 
 export default connectToDatabase;
-
 // ,{useNewUrlParser:true}
