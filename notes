@@ -3,5 +3,5 @@
 // 3- header and footer 
 // 4- mongo atlas login and make db and collecction for -> save Restaurant data for signup  
 // 5- env file , db file api route , make model check connection npm mongoes
-// 6
+// 6 common isssues regarding to connection to mongo db
 
