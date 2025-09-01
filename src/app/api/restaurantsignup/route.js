@@ -42,7 +42,7 @@ export async function POST(req, { params }) {
 
         if(error.code === 11000){
 
-            return NextResponse.json({ status: false, result:"email already exists" })
+            return NextResponse.json({ status: false, result:"email already exists",code:11000 })
         }
         return NextResponse.json({ status: false, result:error })
         

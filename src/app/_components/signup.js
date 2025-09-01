@@ -39,7 +39,7 @@ const Signup = () => {
                 city: '',
                 email: '',
                 address: '',
-                contactNo: '',
+                contactNo: '',  
                 password: '',
             })
             toast('✔️ User Registered', {
@@ -54,8 +54,30 @@ const Signup = () => {
                 transition: Bounce,
             });
 
-        } else {
-            alert("network error")
+        } else if (response.code == 11000) {
+              toast('❌ Email Already Register', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+        }else{
+              toast('❌ Unathorized error', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
         }
 
 
@@ -187,7 +209,7 @@ const Signup = () => {
                     </form>
                 </div>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </section>
     );
 };
