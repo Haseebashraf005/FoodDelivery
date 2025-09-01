@@ -22,9 +22,31 @@ const Signup = () => {
     };
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form Data:', formData);
+
+        let result = await fetch("http://localhost:3000/api/restaurantsignup", {
+            method: "POST",
+            body: JSON.stringify(formData)
+        })
+        let response = await result.json();
+
+        if (response.status) {
+            setFormData({
+                restaurantName: '',
+                city: '',
+                email: '',
+                address: '',
+                contactNo: '',
+                password: '',
+            })
+            alert("user Registeration successfull")
+        } else {
+            alert("network error")
+        }
+
+
     };
 
     return (

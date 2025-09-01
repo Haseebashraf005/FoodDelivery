@@ -19,6 +19,7 @@ export async function GET() {
 export async function POST(req, { params }) {
     try {
         let payload = await req.json();
+        console.log(payload)
 
         // checking all  required parameter 
 
@@ -33,7 +34,6 @@ export async function POST(req, { params }) {
 
         const result = await newuser.save();
 
-        console.log(payload)
 
 
         return NextResponse.json({ status: true, result })
