@@ -7,7 +7,45 @@ export async function GET() {
 
     // Fetch all user logins
     const users = await RestaurantUser.find();
-    console.log(users)
+    // console.log(users)
 
-    return NextResponse.json({ status: true, result: users})
+    return NextResponse.json({ status: true, result: users })
+}
+
+
+
+
+
+export async function POST(req, { params }) {
+    try {
+        let payload = await req.json();
+
+        // checking all  required parameter 
+
+        // if(!payload.restaurantName || !payload.city || !payload.email || !payload.address || !payload.password || !payload.contactNo){
+        //     return NextResponse.json({ status: false, result: "plz fill all required data "})
+        // }
+
+        // makeing db connection
+        await connectToDatabase();
+
+        let newuser = new RestaurantUser(payload)
+
+        const result = await newuser.save();
+
+        console.log(payload)
+
+
+        return NextResponse.json({ status: true, result })
+        
+    } catch (error) {
+
+        if(error.code === 11000){
+
+            return NextResponse.json({ status: false, result:"email already exists" })
+        }
+        return NextResponse.json({ status: false, result:error })
+        
+    }
+
 }
