@@ -1,12 +1,22 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Login from "../_components/login"
 import Signup from "../_components/signup"
 import Footer from "../_components/Footer"
+import { useRouter } from "next/navigation"
 
 const Register = () => {
     const [login, setLogin] = useState(true)
+    let router = useRouter()
+
+    useEffect(()=>{
+        let data = JSON.parse(localStorage.getItem("user"));
+        if(data){
+            router.push("/restaurant/dashboard")
+        }
+
+    },[])
 
     return (
         <>

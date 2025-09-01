@@ -1,8 +1,17 @@
 'use client'
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 const Signup = () => {
+    let router = useRouter()
+   
+
+
+
+   
+
+
     // State to manage form inputs
     const [formData, setFormData] = useState({
         restaurantName: '',
@@ -12,6 +21,7 @@ const Signup = () => {
         contactNo: '',
         password: '',
     });
+
 
     // Handle input changes
     const handleInputChange = (e) => {
@@ -39,7 +49,7 @@ const Signup = () => {
                 city: '',
                 email: '',
                 address: '',
-                contactNo: '',  
+                contactNo: '',
                 password: '',
             })
             toast('✔️ User Registered', {
@@ -54,8 +64,30 @@ const Signup = () => {
                 transition: Bounce,
             });
 
+            // save user to local storage without password field 
+            let userData = response.result;
+            delete userData.password;
+            console.log(userData);
+
+           localStorage.setItem("user", JSON.stringify(userData));
+
+           setInterval(() => {
+               router.push("/restaurant/dashboard")
+            
+           }, 3000);
+
+
+
+
+
+
+
+
+
+
+
         } else if (response.code == 11000) {
-              toast('❌ Email Already Register', {
+            toast('❌ Email Already Register', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -66,8 +98,8 @@ const Signup = () => {
                 theme: "dark",
                 transition: Bounce,
             });
-        }else{
-              toast('❌ Unathorized error', {
+        } else {
+            toast('❌ Unathorized error', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
