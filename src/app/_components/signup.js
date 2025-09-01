@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 const Signup = () => {
     // State to manage form inputs
@@ -41,7 +42,18 @@ const Signup = () => {
                 contactNo: '',
                 password: '',
             })
-            alert("user Registeration successfull")
+            toast('✔️ User Registered', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+
         } else {
             alert("network error")
         }
@@ -175,6 +187,7 @@ const Signup = () => {
                     </form>
                 </div>
             </div>
+            <ToastContainer/>
         </section>
     );
 };
