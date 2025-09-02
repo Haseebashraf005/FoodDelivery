@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { initFlowbite } from 'flowbite'; // Import Flowbite's init function
+import Dashboardbody from '@/app/_components/Dashboardbody';
 
 
 const Dashboard = () => {
@@ -13,8 +14,10 @@ const Dashboard = () => {
 
     let router = useRouter()
     let [userDetails, setUserDetails] = useState({})
+
+
     useEffect(() => {
-        // check if user log in or not 
+        // check if user log in or not  
 
         let data = localStorage.getItem("user");
         if (!data) {
@@ -22,11 +25,20 @@ const Dashboard = () => {
         } else {
             setUserDetails(JSON.parse(data))
         }
-
+        
         // Initialize Flowbite components after DOM is updated
         initFlowbite();
-
+        
     }, [])
+    
+    
+    
+    function signOut() {
+        
+        router.push('/restaurant')
+        localStorage.removeItem("user");
+
+    }
 
     return (
         <main className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 min-h-screen flex flex-col justify-between">
@@ -45,7 +57,7 @@ const Dashboard = () => {
                                 alt="User"
                                 width={40}
                                 height={40}
-                                className="rounded-full"
+                                className="rounded-full cursor-pointer"
                             />
                         </button>
                         {/* Dropdown menu */}
@@ -59,13 +71,13 @@ const Dashboard = () => {
                                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:b  g-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
                                 </li>
                                 <li>
                                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={signOut}>Sign out</a>
                                 </li>
                             </ul>
                         </div>
@@ -100,9 +112,11 @@ const Dashboard = () => {
 
 
 
+            {/* main */}
 
+            {/* <Dashboardbody/> */}
 
-
+            {/* main */}
 
 
 

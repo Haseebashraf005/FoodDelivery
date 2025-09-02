@@ -1,9 +1,11 @@
-// 1- intro
-// 2- restuarant page , login component , signup component 
-// 3- header and footer 
-// 4- mongo atlas login and make db and collecction for -> save Restaurant data for signup  
-// 5- env file , db file api route , make model check connection npm mongoes
-// 6- common isssues regarding to connection to mongo db
-// 7- resturan form data handle for signup using state and show in console -- alreay done 
-// 8- restaurant registeration and save into db
-// 9- handle restaurant signup / login  flow
+// 1 - intro
+// 2 - restuarant page , login component , signup component 
+// 3 - header and footer 
+// 4 - mongo atlas login and make db and collecction for -> save Restaurant data for signup  
+// 5 - env file , db file api route , make model check connection npm mongoes
+// 6 - common isssues regarding to connection to mongo db
+// 7 - resturan form data handle for signup using state and show in console -- alreay done 
+// 8 - restaurant registeration and save into db
+// 9 - handle restaurant signup / login  flow
+// 10- restaurant signup form validation
+// 11- login form handling and  validation *****************
