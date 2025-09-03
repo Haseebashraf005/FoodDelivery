@@ -2,6 +2,7 @@ import connectToDatabase from "@/app/lib/dbConnection";
 import { RestaurantUser } from "@/app/lib/models/RestaurantUser";
 import { NextResponse } from "next/server";
 
+
 export async function GET() {
     await connectToDatabase();
 
@@ -30,13 +31,28 @@ export async function POST(req, { params }) {
         // makeing db connection
         await connectToDatabase();
 
-        let newuser = new RestaurantUser(payload)
+        if (payload.login) {
 
-        const result = await newuser.save();
+            //response when need to login 
+            // let newuser =  RestaurantUser(payload)
+            const result = await RestaurantUser.findOne({ email: payload.email, password: payload.password });
+
+            return NextResponse.json({ status: true, result })
+
+
+        } else {
+
+            // response when need signup 
+
+            let newuser = new RestaurantUser(payload)
+            const result = await newuser.save();
+            return NextResponse.json({ status: true, result })
+        }
 
 
 
-        return NextResponse.json({ status: true, result })
+
+
 
     } catch (error) {
 

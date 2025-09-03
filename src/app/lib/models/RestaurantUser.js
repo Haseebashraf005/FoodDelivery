@@ -11,22 +11,22 @@ const restaurant_user_Schema = new mongoose.Schema({
 });
 
 
-// Hash password before saving
-restaurant_user_Schema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next(); // only hash if new/changed
-  try {
-    const salt = await bcrypt.genSalt(10); // generate salt
-    this.password = await bcrypt.hash(this.password, salt); // hash password
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
+// // Hash password before saving
+// restaurant_user_Schema.pre("save", async function (next) {
+//   if (!this.isModified("password")) return next(); // only hash if new/changed
+//   try {
+//     const salt = await bcrypt.genSalt(10); // generate salt
+//     this.password = await bcrypt.hash(this.password, salt); // hash password
+//     next();
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
-// Method to compare password during login
-restaurant_user_Schema.methods.comparePassword = function (enteredPassword) {
-  return bcrypt.compare(enteredPassword, this.password);
-};
+// // Method to compare password during login
+// restaurant_user_Schema.methods.comparePassword = function (enteredPassword) {
+//   return bcrypt.compare(enteredPassword, this.password);
+// };
 
 
 export const RestaurantUser = mongoose.models.restaurantusers || mongoose.model('restaurantusers', restaurant_user_Schema);

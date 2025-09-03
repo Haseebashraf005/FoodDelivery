@@ -71,7 +71,7 @@ const Signup = () => {
 
            localStorage.setItem("user", JSON.stringify(userData));
 
-           setInterval(() => {
+           setTimeout(() => {
                router.push("/restaurant/dashboard")
             
            }, 3000);
