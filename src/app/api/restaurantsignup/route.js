@@ -56,10 +56,12 @@ export async function POST(req, { params }) {
 
     } catch (error) {
 
-        if (error.code === 11000) {
+        // works only when user try to sign with existing email
 
-            return NextResponse.json({ status: false, result: "email already exists", code: 11000 })
-        }
+        // if (error.code === 11000) {
+        //     return NextResponse.json({ status: false, result: "email already exists", code: 11000 })
+        // }
+
         return NextResponse.json({ status: false, result: error })
 
     }
