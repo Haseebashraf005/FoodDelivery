@@ -30,6 +30,8 @@ export async function POST(req, { params }) {
 
         // makeing db connection
         await connectToDatabase();
+        let success = true;
+
 
         if (payload.login) {
 
@@ -37,7 +39,12 @@ export async function POST(req, { params }) {
             // let newuser =  RestaurantUser(payload)
             const result = await RestaurantUser.findOne({ email: payload.email, password: payload.password });
 
-            return NextResponse.json({ status: true, result })
+            if (!result) {
+                success = false
+            }
+
+
+            return NextResponse.json({ status: success, result })
 
 
         } else {
