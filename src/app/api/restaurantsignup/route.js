@@ -33,7 +33,7 @@ export async function POST(req, { params }) {
 
         if (payload.login) {
 
-            //response when need to login 
+            //response when need to login;
             // let newuser =  RestaurantUser(payload)
             const result = await RestaurantUser.findOne({ email: payload.email, password: payload.password });
 
