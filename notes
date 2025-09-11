@@ -11,7 +11,12 @@
 // 11- login form handling and  validation
 // 12- Restaurant Login Api
 // 13- Handle Restaurant Login flow ok already done 
-// 14- Add /fiid Item Component
+// 14- Add /food Item Component
+// 15- Food items collection and schema
+// 16- Food items api using above schema and send data to db
+// 17- validation for add food items api
+
+
 
 
     
