@@ -15,6 +15,9 @@
 // 15- Food items collection and schema
 // 16- Food items api using above schema and send data to db
 // 17- validation for add food items api
+// 18- make api for food item list for individual resto id
+// 19- make ui component for display resto products already done
+
 
 
 

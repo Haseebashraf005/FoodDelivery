@@ -1,9 +1,16 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 
 const AddProduct = () => {
+
+  const inputRef = useRef(null);
+  useEffect(() => {
+      inputRef.current.focus();
+
+  },[])
+
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -76,6 +83,9 @@ const AddProduct = () => {
         imageUrl: '',
         description: ''
       });
+      inputRef.current.focus();
+
+
     }
 
   };
@@ -99,6 +109,7 @@ const AddProduct = () => {
               required
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
               placeholder="Enter food name"
+              ref={inputRef}
             />
           </div>
 
