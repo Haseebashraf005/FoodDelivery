@@ -27,6 +27,7 @@ const Dashboard = () => {
 
     const handleUpdate = (id) => {
         console.log("Update item:", id);
+        router.push(`/restaurant/dashboard/updateproduct/${id}`)
         // 👉 Add modal or navigate to update page here
     };
 
@@ -97,7 +98,7 @@ const Dashboard = () => {
                                             onClick={() => handleUpdate(item._id)}
                                             className="px-3 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700 w-full sm:w-auto cursor-pointer"
                                         >
-                                            Update
+                                            Edit
                                         </button>
                                         <button
                                             onClick={() => handleDelete(item._id)}

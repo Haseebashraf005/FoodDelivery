@@ -31,3 +31,6 @@ export async function DELETE(req, { params }) {
     return NextResponse.json({ status: false, message: "Error deleting food item", error: err.message }, { status: 500 });
   }
 }
+
+
+
