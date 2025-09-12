@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useRef, useState } from 'react';
 
 const UpdateProduct = ({ params }) => {
@@ -10,7 +10,23 @@ const UpdateProduct = ({ params }) => {
 
     useEffect(() => {
         inputRef.current.focus();
+        fetchData();
+
+
     }, []);
+
+    const fetchData = async () => {
+        try {
+            const res = await fetch(`http://localhost:3000/api/fooditems/edit/${payload.itemId}`);
+            const data = await res.json();
+            console.log("API Response:", data);
+            // if (data.status) {
+            //     setFooditems(data.fooditems);
+            // }
+        } catch (err) {
+            console.error("Error fetching API:", err);
+        }
+    };
 
     const [formData, setFormData] = useState({
         name: '',
@@ -59,9 +75,9 @@ const UpdateProduct = ({ params }) => {
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900 p-8">
-            {/* {payload.itemId} */}
+            {payload.itemId}
             <div className="max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-                <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">Update Product</h1>
+                <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">Update </h1>
 
                 <div className="space-y-4">
                     {/* Food Name */}
