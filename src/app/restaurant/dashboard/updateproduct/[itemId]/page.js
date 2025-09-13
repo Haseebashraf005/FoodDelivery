@@ -1,8 +1,13 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+
 
 const UpdateProduct = ({ params }) => {
     const inputRef = useRef(null);
+
+    let router = useRouter()
 
     // unwrap params safely (Next.js App Router 15+)
     const payload = React.use(params);
@@ -56,25 +61,46 @@ const UpdateProduct = ({ params }) => {
             alert('Please fill all fields!');
             return;
         }
-        
 
+
+        const res = await fetch(`http://localhost:3000/api/fooditems/edit/${payload.itemId}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                "foodname": formData.name,
+                "price": formData.price,
+                "image": formData.image,
+                "description": formData.description
+            })
+        });
+        const data = await res.json();
         console.log('Updated Product Data:', formData);
 
-        alert('Product updated! Check console for details.');
-
-        setFormData({
-            name: '',
-            price: '',
-            image: '',
-            description: ''
+        toast('✔️ update Successfull plz wait', {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
         });
 
-        inputRef.current?.focus();
+        // setFormData({
+        //     name: '',
+        //     price: '',
+        //     image: '',
+        //     description: ''
+        // });
+        router.push("/restaurant/dashboard")
+
     };
 
     return (
         <div className="bg-gray-100 dark:bg-gray-900 p-8">
-            {payload.itemId}
+            {/* {payload.itemId} */}
+            <ToastContainer />
             <div className="max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
                 <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">Update</h1>
 

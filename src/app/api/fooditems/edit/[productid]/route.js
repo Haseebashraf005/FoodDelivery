@@ -41,7 +41,7 @@ export async function PUT(req, { params }) {
         return NextResponse.json({ status: true ,result});
     }
 
-    return NextResponse.json({ status: true ,productid});f
+    return NextResponse.json({ status: false,result:"not updated"});f
 
 }
 
