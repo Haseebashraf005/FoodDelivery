@@ -5,11 +5,11 @@ import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 const Signup = () => {
     let router = useRouter()
-   
 
 
 
-   
+
+
 
 
     // State to manage form inputs
@@ -69,24 +69,13 @@ const Signup = () => {
             delete userData.password;
             console.log(userData);
 
-           localStorage.setItem("user", JSON.stringify(userData));
+            localStorage.setItem("user", JSON.stringify(userData));
 
-           setTimeout(() => {
-               router.push("/restaurant/dashboard")
-            
-           }, 3000);
+            setTimeout(() => {
+                router.push("/restaurant/dashboard")
 
-
-
-
-
-
-
-
-
-
-
-        } else if (response.code == 11000) {
+            }, 3000);
+        } else if ( response.result.code == 11000) {
             toast('❌ Email Already Register', {
                 position: "top-right",
                 autoClose: 5000,
