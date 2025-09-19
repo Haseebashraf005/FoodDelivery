@@ -3,6 +3,7 @@ import { RestaurantUser } from "@/app/lib/models/RestaurantUser";
 import { NextResponse } from "next/server";
 
 export async function GET() {
+    
     await connectToDatabase();
 
     let restaurantUsers = await RestaurantUser.find();
@@ -13,7 +14,7 @@ export async function GET() {
     //it will return all locatino also first letter of location is capital
 
 
-    // now we need to remove duplicates from locations
+    // now we need to remove duplicate city name from locations
 
     locations = [...new Set(locations)];
 

@@ -2,26 +2,39 @@
 import "flowbite";
 import Header from "./_components/clientSide/Header";
 import Footer from "./_components/Footer";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Page = () => {
-
   const [selectedLocation, setSelectedLocation] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [isLocationOpen, setIsLocationOpen] = useState(false);
+  const [locations, setLocations] = useState([]); // State for API-fetched locations
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
-  const locations = [
-    'New York, NY',
-    'Los Angeles, CA',
-    'Chicago, IL',
-    'Houston, TX',
-    'Phoenix, AZ',
-    'Philadelphia, PA',
-    'San Antonio, TX',
-    'San Diego, CA',
-    'Dallas, TX',
-    'San Jose, CA'
-  ];
+  // Fetch locations from API on component mount
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:3000/api/customerSide/locations');
+        const data = await response.json();
+
+        if (data.status && Array.isArray(data.locations)) {
+          setLocations(data.locations); // Set locations from API response
+        } else {
+          setError('Invalid response from API');
+        }
+      } catch (err) {
+        setError('Failed to fetch locations');
+        console.error('Error fetching locations:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLocations();
+  }, []); // Empty dependency array to run once on mount
 
   const handleSearch = () => {
     console.log('Searching for:', searchQuery, 'in', selectedLocation);
@@ -36,9 +49,9 @@ const Page = () => {
         {/* Changed from min-h-screen to py-20 and updated gradient colors */}
         <div className="relative py-20 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 dark:from-gray-900 dark:via-gray-800 dark:to-black transition-all duration-300">
           {/* Background overlay for better text readability */}
-          <div className="absolute inset-0  bg-opacity-10 dark:bg-opacity-40"></div>
+          <div className="absolute inset-0 bg-opacity-10 dark:bg-opacity-40"></div>
 
-          {/* Content Container - removed min-h-screen and justify-center */}
+          {/* Content Container */}
           <div className="relative z-10 flex flex-col items-center px-4 sm:px-6 lg:px-8">
             {/* Main Heading */}
             <div className="text-center mb-12">
@@ -62,6 +75,7 @@ const Page = () => {
                     <button
                       onClick={() => setIsLocationOpen(!isLocationOpen)}
                       className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-left text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+                      disabled={loading || error} // Disable button during loading or error
                     >
                       <div className="flex items-center">
                         <svg className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,7 +83,7 @@ const Page = () => {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                         <span className={selectedLocation ? 'text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400'}>
-                          {selectedLocation || 'Choose your location'}
+                          {loading ? 'Loading...' : error ? 'Error' : selectedLocation || 'Choose your location'}
                         </span>
                       </div>
                       <svg className={`h-5 w-5 text-gray-500 dark:text-gray-400 transform transition-transform duration-200 ${isLocationOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,23 +91,32 @@ const Page = () => {
                       </svg>
                     </button>
 
-                    {isLocationOpen && (
+                    {isLocationOpen && !loading && !error && (
                       <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg z-20 max-h-60 overflow-y-auto">
-                        {locations.map((location) => (
-                          <button
-                            key={location}
-                            onClick={() => {
-                              setSelectedLocation(location);
-                              setIsLocationOpen(false);
-                            }}
-                            className="w-full px-4 py-3 text-left text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200 border-b border-gray-100 dark:border-gray-600 last:border-b-0"
-                          >
-                            {location}
-                          </button>
-                        ))}
+                        {locations.length > 0 ? (
+                          locations.map((location) => (
+                            <button
+                              key={location}
+                              onClick={() => {
+                                setSelectedLocation(location);
+                                setIsLocationOpen(false);
+                              }}
+                              className="w-full px-4 py-3 text-left text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200 border-b border-gray-100 dark:border-gray-600 last:border-b-0"
+                            >
+                              {location}
+                            </button>
+                          ))
+                        ) : (
+                          <div className="px-4 py-3 text-gray-500 dark:text-gray-400">
+                            No locations available
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
+                  {error && (
+                    <p className="mt-2 text-sm text-red-600 dark:text-red-400">{error}</p>
+                  )}
                 </div>
 
                 {/* Search Input */}
@@ -121,6 +144,7 @@ const Page = () => {
                   <button
                     onClick={handleSearch}
                     className="w-full lg:w-auto px-8 py-3 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    disabled={loading || error} // Disable button during loading or error
                   >
                     Search
                   </button>
@@ -147,7 +171,7 @@ const Page = () => {
         </div>
       </main>
 
-      {/* <Footer/> */}
+      <Footer />
     </>
   );
 };
